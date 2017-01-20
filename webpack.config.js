@@ -1,5 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
+var bourbon = require("bourbon").includePaths;
+var neat = require("bourbon-neat").includePaths;
 
 module.exports = {
   entry: [
@@ -9,6 +11,7 @@ module.exports = {
     loaders: [
       { test: /\.js?$/, loader: 'babel', exclude: /node_modules/ },
       { test: /\.s?css$/, loader: 'style!css!sass' },
+       { test: /\.(png|jpg|jpeg|gif|woff|svg)$/, loader: 'url-loader?limit=8192' },
     ]
   },
   resolve: {
@@ -22,6 +25,9 @@ module.exports = {
   devServer: {
     contentBase: './dist',
     hot: true
+  },
+  sassLoader: {
+    includePaths: bourbon.concat(neat)
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
